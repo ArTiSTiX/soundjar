@@ -6,6 +6,13 @@ export const server = {
 export const database = {
   storage: './development.sqlite',
   dialect: 'sqlite',
+  directory: './migrations',
+  define: {
+    paranoid: true,
+    timestamps: true,
+    freezeTableName: true,
+    underscored: true,
+  },
 }
 
 export const auth = {

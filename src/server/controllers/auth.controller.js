@@ -7,7 +7,7 @@ export const authFacebookCallback = passport.authenticate('facebook', { session:
 const routes = new Router()
 
 function sendToken(req, res) {
-  return res.json({ token: req.user.createToken() })
+  return res.redirect(`/#token=${req.user.createToken()}`)
 }
 
 /** Facebook authenication routes */

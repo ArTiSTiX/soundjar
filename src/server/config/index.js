@@ -2,7 +2,9 @@ import _ from 'lodash'
 
 class ConfigurationNotFound extends Error {}
 
-const { NODE_ENV: env } = process.env
+const { NODE_ENV: env = 'local' } = process.env
+
+console.log(`Using ENV = ${env}`)
 
 let config = require('./config.default')
 

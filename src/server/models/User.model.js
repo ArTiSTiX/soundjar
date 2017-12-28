@@ -17,11 +17,11 @@ export default class User extends Model {
     fb_id: {
       type: Sequelize.STRING,
     },
-    firstname: {
+    first_name: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    lastname: {
+    last_name: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -33,8 +33,8 @@ export default class User extends Model {
       },
     },
     status: {
-      type: Sequelize.ENUM('invited', 'active'),
-      defaultValue: 'invited',
+      type: Sequelize.ENUM('guest', 'invited', 'active', 'admin'),
+      defaultValue: 'guest',
     },
   }
 
@@ -47,5 +47,20 @@ export default class User extends Model {
       },
       config.get('auth.jwt.secret')
     )
+  }
+
+  setProfileFields(profile) {
+    this.fb_id = profile.id
+    this.first_name = profile.name.givenName
+    this.last_name = profile.name.familyName
+    if (profile.emails) {
+      this.email = profile.emails[0].value
+    }
+  }
+
+  acceptInvitation() {
+    if (this.status === 'invited') {
+      this.status = 'active'
+    }
   }
 }

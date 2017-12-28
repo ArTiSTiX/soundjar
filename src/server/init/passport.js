@@ -59,17 +59,8 @@ const facebookLogin = new FacebookStrategy(
         if (!user) {
           user = User.build()
         }
-
-        _.assign(
-          user,
-          {
-            fb_id: profile.id,
-            firstname: profile.name.givenName,
-            lastname: profile.name.familyName,
-          },
-          (profile.emails ? { email: profile.emails[0].value } : {})
-        )
-
+        user.setProfileFields(profile)
+        user.acceptInvitation()
         await user.save()
         return done(null, user)
       }

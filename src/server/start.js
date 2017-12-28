@@ -23,11 +23,14 @@ server.use('/', authenticationMiddleware)
 server.use('/', routes)
 
 db.sequelize
-  .sync()
-  .then(() => server.listen(port, host, err => {
-    if (err) { console.error('Cannot create HTTP server', err) }
-    console.log('Listening...')
-  }))
+  .authenticate()
+  .then(() =>
+    server.listen(port, host, err => {
+      if (err) {
+        console.error('Cannot create HTTP server', err)
+      }
+      console.log('Listening...')
+    }))
   .catch(err => console.log('Can\'t connect to database', err))
 
 export default server
