@@ -1,10 +1,10 @@
 {
   "name": "soundjar",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "A web utility to annotate, store, and review recording sessions with friends",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint ./src"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/ArTiSTiX/soundjar/issues"
   },
-  "homepage": "https://github.com/ArTiSTiX/soundjar#readme"
+  "homepage": "https://github.com/ArTiSTiX/soundjar#readme",
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-react": "^7.5.1"
+  }
 }
