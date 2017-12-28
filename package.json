@@ -1,0 +1,19 @@
+{
+  "name": "soundjar",
+  "version": "0.1",
+  "description": "A web utility to annotate, store, and review recording sessions with friends",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArTiSTiX/soundjar.git"
+  },
+  "author": "Rémi Jarasson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArTiSTiX/soundjar/issues"
+  },
+  "homepage": "https://github.com/ArTiSTiX/soundjar#readme"
+}
