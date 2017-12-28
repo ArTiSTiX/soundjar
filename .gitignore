@@ -1,3 +1,7 @@
+# App
+*.sqlite
+src/server/config/config.local.js
+
 # NodeJS
 
 ## Logs
