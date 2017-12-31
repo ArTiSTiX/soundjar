@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize'
+import config from '../config'
 
 export default class Session extends Model {
   static options = {
@@ -41,9 +42,22 @@ export default class Session extends Model {
       as: 'tracks',
     })
 
-    Session.hasMany(db.File, {
+    Session.hasMany(db.Audio, {
       foreignKey: 'session_id',
-      as: 'files',
+      as: 'audios',
     })
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      directory: this.directory,
+      title: this.title,
+      artist: this.artist,
+      start_at: this.start_at,
+      end_at: this.end_at,
+      cover: this.cover ? `/files/sessions/${this.cover}` : null,
+      tracks: this.tracks,
+    }
   }
 }

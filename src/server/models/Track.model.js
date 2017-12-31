@@ -58,4 +58,15 @@ export default class Track extends Model {
       as: 'regions',
     })
   }
+
+  toJSON() {
+    return {
+      title: this.title,
+      start_at: this.start_at,
+      duration: this.duration,
+      tempo: this.tempo,
+      scale: this.scale,
+      audios: this.audios,
+    }
+  }
 }

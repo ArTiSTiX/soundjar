@@ -10,6 +10,14 @@ export function up(queryInterface, Sequelize) {
       created_at: { type: Sequelize.DATE },
       updated_at: { type: Sequelize.DATE },
       deleted_at: { type: Sequelize.DATE },
+      session_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Sessions',
+          key: 'id',
+        },
+      },
       instrumental_id: {
         type: Sequelize.INTEGER,
         allowNull: true,

@@ -7,6 +7,17 @@ import Instrumental from './Instrumental.model'
 import Participation from './Participation.model'
 import Audio from './Audio.model'
 
+export {
+  User,
+  Session,
+  Track,
+  Region,
+  Lyrics,
+  Instrumental,
+  Participation,
+  Audio,
+}
+
 export default {
   User,
   Session,

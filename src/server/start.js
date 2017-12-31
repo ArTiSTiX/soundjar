@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import config from './config'
 import db from './init/database'
 import { authenticationMiddleware } from './init/passport'
+import './init/response'
 
 import routes from './routes'
 
@@ -18,9 +19,13 @@ server.disable('x-powered-by')
 
 server.use(bodyParser.json())
 
+server.use('/files/sessions', express.static(config.get('storage.sessions')))
+server.use('/files/instrumentals', express.static(config.get('storage.instrumentals')))
+
 server.use('/', passport.initialize())
 server.use('/', authenticationMiddleware)
 server.use('/', routes)
+
 
 db.sequelize
   .authenticate()

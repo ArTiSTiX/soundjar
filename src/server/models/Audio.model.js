@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize'
+import config from '../config'
 
 export default class Audio extends Model {
   static options = {
@@ -27,6 +28,18 @@ export default class Audio extends Model {
         key: 'id',
       },
     },
+    duration: {
+      type: Sequelize.FLOAT,
+      allowNull: true,
+    },
+    sample_rate: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+    },
+    bits_per_sample: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+    },
     channel: {
       type: Sequelize.STRING(16),
       allowNull: false,
@@ -47,9 +60,21 @@ export default class Audio extends Model {
       as: 'session',
     })
 
-    Audio.hasMany(db.Track, {
+    Audio.belongsTo(db.Track, {
       foreignKey: 'track_id',
       as: 'track',
     })
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      duration: this.duration,
+      sample_rate: this.sample_rate,
+      bits_per_sample: this.bits_per_sample,
+      channel: this.channel,
+      source: this.source ? `/files/sessions/${this.source}` : null,
+      mp3: this.mp3 ? `/files/sessions/${this.mp3}` : null,
+    }
   }
 }

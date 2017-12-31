@@ -8,7 +8,8 @@
     "prod": "NODE_ENV=production npm start",
     "start": "node bin/start",
     "dev": "NODE_ENV=local npm start",
-    "sequelize": "babel-node ./node_modules/.bin/sequelize $*"
+    "sequelize": "babel-node ./node_modules/.bin/sequelize $*",
+    "jobs": "babel-node ./bin/jobs $*"
   },
   "repository": {
     "type": "git",
@@ -42,7 +43,9 @@
     "express": "^4.16.2",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
+    "moment": "^2.20.1",
     "mysql2": "^1.5.1",
+    "node-ffprobe": "^1.2.2",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-jwt": "^3.0.1",
