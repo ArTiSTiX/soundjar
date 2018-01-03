@@ -1,0 +1,49 @@
+@import 'variables';
+
+.base {
+  &:hover {
+    .cover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.preview {
+  border-radius: 3px;
+  box-shadow: 0 0 6px 2px rgba($color-black, 0.6);
+  overflow: hidden;
+}
+
+.cover {
+  transition: transform $transition_medium;
+  transform: scale(1);
+  background: $color-neutral-normal;
+  &--image {
+    vertical-align: bottom;
+    width: 100%;
+    height: auto;
+  }
+  &--trianglify {
+    > svg, > img {
+      width: 100%;
+      height: auto;
+      vertical-align: bottom;
+    }
+  }
+}
+
+.header {
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+
+.title {
+  font-weight: bold;
+}
+
+.artist {
+  text-transform: uppercase;
+  color: $color-neutral-light;
+  font-size: 12px;
+}

@@ -1,0 +1,51 @@
+@import 'variables';
+
+.base {
+  background: $color-neutral-dark;
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+}
+
+.preview {
+  border-radius: 3px;
+  box-shadow: 0 0 6px 2px rgba($color-black, 0.6);
+  overflow: hidden;
+  flex-basis: 320px;
+}
+
+.cover {
+  background: $color-neutral-normal;
+  &--image {
+    vertical-align: bottom;
+    width: 100%;
+    height: auto;
+  }
+  &--trianglify {
+    > svg, > img {
+      width: 100%;
+      height: auto;
+      vertical-align: bottom;
+    }
+  }
+}
+
+.info {
+  margin-left: 16px;
+  flex-grow: 1;
+}
+
+.header {
+
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.artist {
+  text-transform: uppercase;
+  color: $color-neutral-light;
+  font-size: 18px;
+}

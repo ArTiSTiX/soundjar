@@ -1,3 +1,4 @@
+@import './mixins';
 
 $color-black: #090e12;
 $color-white: #f0f2f0;
@@ -19,3 +20,5 @@ $color-accent-light: #d14782;
 $zindex-header: 500;
 $zindex-side: 100;
 $zindex-body: 200;
+
+$transition_medium: 0.5s ease;

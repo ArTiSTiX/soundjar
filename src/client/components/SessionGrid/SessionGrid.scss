@@ -1,0 +1,16 @@
+
+$SessionGrid-item_width: 240px;
+
+.base {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 16px 8px 8px;
+}
+
+.item {
+  flex-grow: O;
+  flex-basis: $SessionGrid-item_width;
+  margin: 8px;
+}

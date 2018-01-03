@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import Sequelize, { Model } from 'sequelize'
 
 export default class Track extends Model {
@@ -45,6 +46,13 @@ export default class Track extends Model {
     scale: { // Music scale
       type: Sequelize.STRING(16),
     },
+    render: {
+      type: Sequelize.VIRTUAL,
+      get: function getRenderAudio() {
+        const audios = this.get('audios') || []
+        return _.find(audios, { channel: 'render' }) || _.find(audios, { channel: 'master' })
+      },
+    },
   }
 
   static associate(db) {
@@ -66,6 +74,7 @@ export default class Track extends Model {
       duration: this.duration,
       tempo: this.tempo,
       scale: this.scale,
+      render: this.render,
       audios: context && context.can('track:read-audio', this) ? this.audios : undefined,
     }
   }

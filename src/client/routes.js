@@ -2,16 +2,21 @@ import React from 'react'
 import {
   Route,
   Switch,
+  Redirect,
 } from 'react-router-dom'
 
-import { App } from './views'
-
-const Test = () => (<div>Contenu</div>)
+import {
+  App,
+  Sessions,
+  SessionDetail,
+} from './views'
 
 const Root = () => (
   <App>
     <Switch>
-      <Route path='/' component={Test} />
+      <Route exact path='/' component={Sessions} />
+      <Route path='/sessions/:sessionId' component={SessionDetail} />
+      <Redirect to='/' />
     </Switch>
   </App>
 )

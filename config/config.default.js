@@ -11,6 +11,7 @@ export const database = {
   directory: './migrations',
   define: {
     paranoid: true,
+    rejectOnEmpty: true,
     timestamps: true,
     freezeTableName: true,
     underscored: true,
@@ -40,8 +41,8 @@ export const bluebird = {
 }
 
 export const storage = {
-  sessions: path.resolve(__dirname, '../../../files/projects'),
-  instrumentals: path.resolve(__dirname, '../../../files/instrus'),
+  sessions: path.resolve(__dirname, '../files/projects'),
+  instrumentals: path.resolve(__dirname, '../files/instrus'),
   audioPattern: {
     regex: /^([a-z0-9_ ]+)_(\d{4}-\d{2}-\d{2}\s\d{2}-\d{2}-\d{2})_([a-z0-9_ ]+)$/i,
     dateFormat: 'YYYY-MM-DD hh-mm-ss',
