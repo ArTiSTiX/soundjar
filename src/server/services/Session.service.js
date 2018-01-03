@@ -15,6 +15,7 @@ class SessionService {
   }
 
   list(params) {
+    this.context.authorize('session:list')
     const query = transformQuery(params)
 
     return Session.findAll({
@@ -25,7 +26,7 @@ class SessionService {
   get(id) {
     return Session.findOne({
       where: { id },
-    })
+    }).then(session => this.context.authorize('session:update', session))
   }
 
   detail(id) {
@@ -47,10 +48,11 @@ class SessionService {
           ],
         },
       ],
-    })
+    }).then(session => this.context.authorize('session:update', session))
   }
 
   async create(data) {
+    this.context.authorize('session:create')
     const session = await Session.create(data)
 
     // TODO: Post actions
@@ -69,6 +71,8 @@ class SessionService {
       throw new Error(`Session not found for id ${id}`)
     }
 
+    this.context.authorize('session:update', session)
+
     return session.update(data)
   }
 
@@ -82,6 +86,8 @@ class SessionService {
     if (!session) {
       throw new Error(`Session not found for id ${id}`)
     }
+
+    this.context.authorize('session:delete', session)
 
     return session.delete()
   }

@@ -10,6 +10,7 @@ class TrackService {
   }
 
   list(sessionId, params) {
+    this.context.authorize('track:list')
     const query = transformQuery(params)
     query.where = query.where || {}
     query.where.session_id = sessionId
@@ -21,7 +22,7 @@ class TrackService {
   get(id) {
     return Track.findOne({
       where: { id },
-    })
+    }).then(track => this.context.authorize('track:read', track))
   }
 
   detail(id) {
@@ -33,43 +34,48 @@ class TrackService {
           as: 'tracks',
         },
       ],
-    })
+    }).then(track => this.context.authorize('track:read', track))
   }
 
   async create(sessionId, data) {
-    const session = await Track.create(data)
+    this.context.authorize('track:create')
+    const track = await Track.create(data)
 
     // TODO: Post actions
 
-    return session
+    return track
   }
 
   async update(id, data) {
-    const session = await Track.findOne({
+    const track = await Track.findOne({
       where: {
         id,
       },
     })
 
-    if (!session) {
+    if (!track) {
       throw new Error(`Track not found for id ${id}`)
     }
 
-    return session.update(data)
+    this.context.authorize('track:update', track)
+
+    return track.update(data)
   }
 
   async delete(id) {
-    const session = await Track.findOne({
+    const track = await Track.findOne({
       where: {
         id,
       },
     })
 
-    if (!session) {
+    if (!track) {
       throw new Error(`Track not found for id ${id}`)
     }
 
-    return session.delete()
+    this.context.authorize('track:delete', track)
+
+    return track.delete()
   }
 
   findOrCreateByDate(sessionId, startAt, data) {

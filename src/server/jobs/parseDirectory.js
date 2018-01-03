@@ -40,7 +40,7 @@ export const execute = context => async (dir = SESSIONS_DIRECTORY) => {
       const relativePath = _.trim(path.relative(SESSIONS_DIRECTORY, file), './')
       const [sessionDirectory] = relativePath.split(path.sep)
       if (relativePath === sessionDirectory) {
-        throw new Error(`${sessionDirectory} is not a session`)
+        throw new Error(`${sessionDirectory} is not a session`)
       }
       const [session] = await sessionService.findOrCreateByDirectory(sessionDirectory)
       const extension = _.trim(path.parse(file).ext, '.')

@@ -1,0 +1,11 @@
+@import 'variables.scss';
+@import url('https://fonts.googleapis.com/css?family=Exo:300,600');
+
+body {
+  color: $color-white;
+  background: $color-neutral-dark;
+  font-family: Exo, sans-serif;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}

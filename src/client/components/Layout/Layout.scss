@@ -1,0 +1,52 @@
+@import 'variables';
+
+.base {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 24px;
+  border-bottom: solid 1px lighten($color-neutral-dark, 2%);
+  background: $color-neutral-dark;
+  padding: 8px 16px;
+  box-shadow: 0 -4px 8px 6px $color-neutral-darker, inset 0 -16px 32px 0 rgba($color-neutral-darker, 0.3);
+  position: relative;
+  z-index: $zindex-header;
+}
+
+.logo {
+  margin: auto auto auto 0;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.auth {
+  margin: auto 0;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.side,
+.playlist {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 200px;
+  background: $color-neutral-darker;
+}
+
+.body {
+  flex-grow: 1;
+  box-shadow: 0 0 16px 0px $color-black;
+  position: relative;
+  z-index: $zindex-body;
+}

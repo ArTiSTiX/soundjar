@@ -3,6 +3,8 @@ import Sequelize from 'sequelize'
 import config from '../config'
 import models from '../models'
 
+Sequelize.Promise = global.Promise
+
 const sequelize = new Sequelize(config.get('database'))
 const db = {}
 

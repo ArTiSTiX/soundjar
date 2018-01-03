@@ -1,5 +1,4 @@
 import Sequelize, { Model } from 'sequelize'
-import config from '../config'
 
 export default class Audio extends Model {
   static options = {

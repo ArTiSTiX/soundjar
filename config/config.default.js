@@ -35,6 +35,10 @@ export const defaults = {
   artist: 'Poons',
 }
 
+export const bluebird = {
+  longStackTrace: false,
+}
+
 export const storage = {
   sessions: path.resolve(__dirname, '../../../files/projects'),
   instrumentals: path.resolve(__dirname, '../../../files/instrus'),
@@ -55,4 +59,22 @@ export const storage = {
       title: 5,
     },
   },
+}
+
+export const build = {
+  filename: 'assets/javascripts/[name].js',
+  chunkFilename: 'assets/javascripts/[name].js',
+  commonsChunk: null,
+  imagesFilename: 'assets/images/[name].[ext]',
+  fontsFilename: 'assets/fonts/[name].[ext]',
+  cssFilename: false,
+  publicPath: '/',
+  devtool: 'cheap-module-eval-source-map',
+  minify: false,
+  hmr: true,
+}
+
+export const app = {
+  title: 'SoundJar',
+  apiRoot: '/api/',
 }

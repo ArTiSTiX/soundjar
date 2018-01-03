@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import Sequelize, { Model } from 'sequelize'
 import jwt from 'jsonwebtoken'
 
@@ -61,6 +62,17 @@ export default class User extends Model {
   acceptInvitation() {
     if (this.status === 'invited') {
       this.status = 'active'
+    }
+  }
+
+  toJSON(context) {
+    return {
+      fb_id: this.fb_id,
+      email: context && context.can('user:read-all', this) ? this.email : undefined,
+      last_name: this.last_name,
+      first_name: this.first_name,
+      status: this.status,
+      created_at: this.created_at,
     }
   }
 }

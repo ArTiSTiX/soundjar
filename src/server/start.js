@@ -5,12 +5,12 @@ import bodyParser from 'body-parser'
 import config from './config'
 import db from './init/database'
 import { authenticationMiddleware } from './init/passport'
-import './init/response'
+import webpackMiddleware from './init/webpack'
 
 import routes from './routes'
 
-const port = config.get('servcer.port', 3000)
-const host = config.get('servcer.host', '127.0.0.1')
+const port = config.get('server.port', 3000)
+const host = config.get('server.host', '127.0.0.1')
 
 const server = express()
 
@@ -25,7 +25,7 @@ server.use('/files/instrumentals', express.static(config.get('storage.instrument
 server.use('/', passport.initialize())
 server.use('/', authenticationMiddleware)
 server.use('/', routes)
-
+webpackMiddleware(server)
 
 db.sequelize
   .authenticate()
@@ -37,5 +37,10 @@ db.sequelize
       console.log('Listening...')
     }))
   .catch(err => console.log('Can\'t connect to database', err))
+
+process.on('unhandledRejection', error => {
+  console.log('unhandledRejection', error.message)
+})
+
 
 export default server

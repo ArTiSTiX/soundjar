@@ -19,6 +19,13 @@ export class Forbidden extends ApiError {
   }
 }
 
+export class NotFound extends ApiError {
+  constructor(message = 'Not Found') {
+    super(message)
+    this.status = 404
+  }
+}
+
 export class Unauthorized extends ApiError {
   constructor(message = 'Unauthorized') {
     super(message)

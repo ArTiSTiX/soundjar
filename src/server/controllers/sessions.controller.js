@@ -25,8 +25,8 @@ function detail(req, res) {
   return res.api(sessionService.detail(id))
 }
 
-routes.all('*', initialize)
-routes.param(':sessionId', populateSession)
+routes.all('/*', initialize)
+routes.param('sessionId', populateSession)
 
 routes.get('/', list)
 routes.get('/:id', detail)

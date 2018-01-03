@@ -59,14 +59,14 @@ export default class Track extends Model {
     })
   }
 
-  toJSON() {
+  toJSON(context) {
     return {
       title: this.title,
       start_at: this.start_at,
       duration: this.duration,
       tempo: this.tempo,
       scale: this.scale,
-      audios: this.audios,
+      audios: context && context.can('track:read-audio', this) ? this.audios : undefined,
     }
   }
 }

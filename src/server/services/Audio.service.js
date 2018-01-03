@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import moment from 'moment'
-import _ from 'lodash'
 import Promise from 'bluebird'
 import ffprobe from 'node-ffprobe'
 import {
@@ -24,6 +23,7 @@ class AudioService {
   }
 
   list(sessionId, params) {
+    this.context.authorize('audio:list')
     const query = transformQuery(params)
     query.where = query.where || {}
     query.where.session_id = sessionId
@@ -35,7 +35,7 @@ class AudioService {
   get(id) {
     return Audio.findOne({
       where: { id },
-    })
+    }).then(audio => this.context.authorize('audio:read', audio))
   }
 
   detail(id) {
@@ -47,43 +47,47 @@ class AudioService {
           as: 'tracks',
         },
       ],
-    })
+    }).then(audio => this.context.authorize('audio:read', audio))
   }
 
   async create(sessionId, data) {
-    const session = await Audio.create(data)
+    this.context.authorize('audio:create')
+    const audio = await Audio.create(data)
 
     // TODO: Post actions
 
-    return session
+    return audio
   }
 
   async update(id, data) {
-    const session = await Audio.findOne({
+    const audio = await Audio.findOne({
       where: {
         id,
       },
     })
 
-    if (!session) {
+    if (!audio) {
       throw new Error(`Audio not found for id ${id}`)
     }
+    this.context.authorize('audio:update', audio)
 
-    return session.update(data)
+    return audio.update(data)
   }
 
   async delete(id) {
-    const session = await Audio.findOne({
+    const audio = await Audio.findOne({
       where: {
         id,
       },
     })
 
-    if (!session) {
+    if (!audio) {
       throw new Error(`Audio not found for id ${id}`)
     }
 
-    return session.delete()
+    this.context.authorize('audio:delete', audio)
+
+    return audio.delete()
   }
 
   async findOrCreateByFile(session, file) {
