@@ -1,4 +1,5 @@
 @import './mixins';
+$font_path: '../assets/fonts' !default;
 
 $color-black: #090e12;
 $color-white: #f0f2f0;
@@ -10,15 +11,18 @@ $color-neutral-light: #7d8491;
 $color-neutral-lighter: #d4dbd6;
 
 $color-accent-dark: #135744;
-$color-accent-normal: #209775;
+$color-accent-normal: #29c196;
 $color-accent-light: #30d3a5;
 
-$color-accent-dark: #66193a;
-$color-accent-normal: #a3295d;
-$color-accent-light: #d14782;
+$color-warn-dark: #66193a;
+$color-warn-normal: #a3295d;
+$color-warn-light: #d14782;
 
 $zindex-header: 500;
 $zindex-side: 100;
 $zindex-body: 200;
+$zindex-player: 400;
 
-$transition_medium: 0.5s ease;
+$transition_slow: 0.8s ease;
+$transition_medium: 0.4s ease;
+$transition_fast: 0.2s ease;

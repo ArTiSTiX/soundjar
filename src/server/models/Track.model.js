@@ -50,7 +50,7 @@ export default class Track extends Model {
       type: Sequelize.VIRTUAL,
       get: function getRenderAudio() {
         const audios = this.get('audios') || []
-        return _.find(audios, { channel: 'render' }) || _.find(audios, { channel: 'master' })
+        return _.find(audios, { channel: 'render' }) || _.find(audios, { channel: 'master' }) || _.find(audios, { channel: 'MASTER' })
       },
     },
   }
@@ -69,6 +69,7 @@ export default class Track extends Model {
 
   toJSON(context) {
     return {
+      id: this.id,
       title: this.title,
       start_at: this.start_at,
       duration: this.duration,

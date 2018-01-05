@@ -64,7 +64,7 @@ const webpackConfig = {
   module: {
     rules: [
       {
-        test: /fonts[/\\].+\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+        test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
         use: {
           loader: 'file-loader',
           options: {
@@ -112,7 +112,8 @@ const webpackConfig = {
         ),
       },
       {
-        test: /(?!compat)\.js?$/,
+        test: /\.js?$/,
+        exclude: [require.resolve('wavesurfer.js')],
         use: {
           loader: 'babel-loader',
           options: {
@@ -132,9 +133,12 @@ const webpackConfig = {
           },
         },
       },
+      {
+        test: require.resolve('wavesurfer.js'),
+        use: 'imports-loader?this=>window',
+      },
     ],
   },
-
   plugins: [
     new ExtendedDefinePlugin({
       BROWSER: true,
@@ -147,15 +151,16 @@ const webpackConfig = {
     ...plugins,
   ],
 
-  externals: {
+  resolveLoader: {
+    modules: [path.join(__dirname, '../node_modules')],
   },
 
   resolve: {
-    modules: [src, 'node_modules'],
+    modules: [src, path.join(__dirname, '../node_modules')],
+    alias: {
+      wavesurfer: 'wavesurfer.js',
+    },
   },
 }
-
-console.log(webpackConfig.module.rules[2].use)
-
 
 export default webpackConfig

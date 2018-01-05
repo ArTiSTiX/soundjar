@@ -10,3 +10,21 @@ body {
   margin: 0;
   padding: 0;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  appearance: none;
+}
+
+a, button {
+  outline: none;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  &[disabled] {
+    cursor: default;
+  }
+}

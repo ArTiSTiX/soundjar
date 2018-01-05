@@ -14,21 +14,18 @@ export class ApiError extends Error {
 
 export class Forbidden extends ApiError {
   constructor(message = 'Forbidden') {
-    super(message)
-    this.status = 403
+    super(message, 403)
   }
 }
 
 export class NotFound extends ApiError {
   constructor(message = 'Not Found') {
-    super(message)
-    this.status = 404
+    super(message, 404)
   }
 }
 
 export class Unauthorized extends ApiError {
   constructor(message = 'Unauthorized') {
-    super(message)
-    this.status = 401
+    super(message, 401)
   }
 }

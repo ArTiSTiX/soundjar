@@ -22,6 +22,12 @@ function contextSerializer(context, value) {
 
 function apiResponse(context, data, status = 200) {
   const serializer = contextSerializer.bind(null, context)
+  if (data instanceof Error) {
+    if (data instanceof ApiError) {
+      return this.status(data.status || 500).json(data)
+    }
+    return this.status(500).json({ name: data.name })
+  }
 
   return Promise
     .resolve(data)
@@ -32,7 +38,7 @@ function apiResponse(context, data, status = 200) {
       }
 
       if (err instanceof ApiError) {
-        return this.status(err.status).json(err)
+        return this.status(err.status || 500).json(err)
       }
 
       return this.status(500).json(err)

@@ -72,6 +72,7 @@
     "classnames": "^2.2.5",
     "express": "^4.16.2",
     "history": "^4.7.2",
+    "imports-loader": "^0.7.1",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
@@ -88,12 +89,14 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "react-trianglify": "^1.2.0",
+    "react-wavesurfer": "ArTiSTiX/react-wavesurfer#master",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.28.6",
     "sequelize-cli": "^3.2.0",
     "trianglify": "^1.2.0",
+    "wavesurfer.js": "^1.4.0",
     "webpack": "^3.10.0"
   }
 }

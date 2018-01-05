@@ -1,0 +1,141 @@
+/*
+  Musicon icon font: Musicon
+  Creation date: 22/06/2016 15:28
+  Author: Freepik
+  Source: https://www.flaticon.com/packs/music-and-multimedia-linear
+*/
+
+@import 'variables';
+
+@font-face {
+  font-family: "Musicon";
+  src: url("./assets/Musicon.eot");
+  src: url("./assets/Musicon.eot?#iefix") format("embedded-opentype"),
+       url("./assets/Musicon.woff") format("woff"),
+       url("./assets/Musicon.ttf") format("truetype"),
+       url("./assets/Musicon.svg#Musicon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Musicon";
+    src: url("./assets/Musicon.svg#Musicon") format("svg");
+  }
+}
+
+.icon:before{
+  display: inline-block;
+  font-family: "Musicon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.acoustic-guitar:before { content: "\f100"; }
+.backward:before { content: "\f101"; margin-left: -0.1em; }
+.banjo:before { content: "\f102"; }
+.bell:before { content: "\f103"; }
+.cassette:before { content: "\f104"; }
+.cd:before { content: "\f105"; }
+.console-panel:before { content: "\f106"; }
+.drum:before { content: "\f107"; }
+.drums:before { content: "\f108"; }
+.drumsticks:before { content: "\f109"; }
+.earphones:before { content: "\f10a"; }
+.eject:before { content: "\f10b"; }
+.electric-guitar:before { content: "\f10c"; }
+.equalizer:before { content: "\f10d"; }
+.forward:before { content: "\f10e"; margin-right: -0.15em; }
+.gramophone:before { content: "\f10f"; }
+.grand-piano:before { content: "\f110"; }
+.headphones:before { content: "\f111"; }
+.lyra:before { content: "\f112"; }
+.mandolin:before { content: "\f113"; }
+.maracas:before { content: "\f114"; }
+.megaphone:before { content: "\f115"; }
+.metronome:before { content: "\f116"; }
+.microphone:before { content: "\f117"; }
+.microphone-1:before { content: "\f118"; }
+.microphone-2:before { content: "\f119"; }
+.mp3-player:before { content: "\f11a"; }
+.music-file:before { content: "\f11b"; }
+.music-folder:before { content: "\f11c"; }
+.musical-note:before { content: "\f11d"; }
+.musical-note-1:before { content: "\f11e"; }
+.mute:before { content: "\f11f"; }
+.no-sound:before { content: "\f120"; }
+.pause:before { content: "\f121"; }
+.piano-keys:before { content: "\f122"; }
+.play:before { content: "\f123"; margin-right: -0.2em;}
+.radio:before { content: "\f124"; }
+.sound-frecuency:before { content: "\f125"; }
+.speaker:before { content: "\f126"; }
+.speaker-1:before { content: "\f127"; }
+.speaker-with-waves:before { content: "\f128"; }
+.triangle:before { content: "\f129"; }
+.trumpet:before { content: "\f12a"; }
+.tuning-fork:before { content: "\f12b"; }
+.vdeo-cmera:before { content: "\f12c"; }
+.video-camera:before { content: "\f12d"; }
+.video-player:before { content: "\f12e"; }
+.violin:before { content: "\f12f"; }
+.xylophone:before { content: "\f130"; }
+
+$Musicon-acoustic-guitar: "\f100";
+$Musicon-backward: "\f101";
+$Musicon-banjo: "\f102";
+$Musicon-bell: "\f103";
+$Musicon-cassette: "\f104";
+$Musicon-cd: "\f105";
+$Musicon-console-panel: "\f106";
+$Musicon-drum: "\f107";
+$Musicon-drums: "\f108";
+$Musicon-drumsticks: "\f109";
+$Musicon-earphones: "\f10a";
+$Musicon-eject: "\f10b";
+$Musicon-electric-guitar: "\f10c";
+$Musicon-equalizer: "\f10d";
+$Musicon-forward: "\f10e";
+$Musicon-gramophone: "\f10f";
+$Musicon-grand-piano: "\f110";
+$Musicon-headphones: "\f111";
+$Musicon-lyra: "\f112";
+$Musicon-mandolin: "\f113";
+$Musicon-maracas: "\f114";
+$Musicon-megaphone: "\f115";
+$Musicon-metronome: "\f116";
+$Musicon-microphone: "\f117";
+$Musicon-microphone-1: "\f118";
+$Musicon-microphone-2: "\f119";
+$Musicon-mp3-player: "\f11a";
+$Musicon-music-file: "\f11b";
+$Musicon-music-folder: "\f11c";
+$Musicon-musical-note: "\f11d";
+$Musicon-musical-note-1: "\f11e";
+$Musicon-mute: "\f11f";
+$Musicon-no-sound: "\f120";
+$Musicon-pause: "\f121";
+$Musicon-piano-keys: "\f122";
+$Musicon-play: "\f123";
+$Musicon-radio: "\f124";
+$Musicon-sound-frecuency: "\f125";
+$Musicon-speaker: "\f126";
+$Musicon-speaker-1: "\f127";
+$Musicon-speaker-with-waves: "\f128";
+$Musicon-triangle: "\f129";
+$Musicon-trumpet: "\f12a";
+$Musicon-tuning-fork: "\f12b";
+$Musicon-vdeo-cmera: "\f12c";
+$Musicon-video-camera: "\f12d";
+$Musicon-video-player: "\f12e";
+$Musicon-violin: "\f12f";
+$Musicon-xylophone: "\f130";

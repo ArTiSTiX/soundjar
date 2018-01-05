@@ -35,7 +35,6 @@ export default handleActions({
       isLoading: false,
       error: false,
     },
-
   }),
   [LIST_SESSIONS_LOADING]: state => ({
     ...state,
@@ -65,6 +64,7 @@ export default handleActions({
     ...state,
     detail: {
       ...state.detail,
+      data: null,
       isLoading: true,
     },
 

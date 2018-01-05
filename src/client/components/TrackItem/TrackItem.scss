@@ -1,0 +1,35 @@
+@import 'variables';
+
+.base {
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  color: $color-neutral-dark;
+  background: $color-white;
+  border-bottom: 1px solid $color-neutral-lighter;
+}
+
+.play {
+  width: 64px;
+}
+
+.button {
+  @include buttonColor($color-accent-normal);
+  appearance: none;
+  font-size: 24px;
+  line-height: 30px;
+  width: 32px;
+  height: 32px;
+  border-radius: 32px;
+  margin: 0 8px;
+
+  &--play {
+    width: 48px;
+    height: 48px;
+    border-radius: 48px;
+
+    &.isPlaying {
+      @include buttonColor($color-warn-normal);
+    }
+  }
+}

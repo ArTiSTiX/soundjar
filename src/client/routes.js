@@ -14,9 +14,9 @@ import {
 const Root = () => (
   <App>
     <Switch>
-      <Route exact path='/' component={Sessions} />
+      <Route exact path='/sessions' component={Sessions} />
       <Route path='/sessions/:sessionId' component={SessionDetail} />
-      <Redirect to='/' />
+      <Redirect to='/sessions' />
     </Switch>
   </App>
 )
