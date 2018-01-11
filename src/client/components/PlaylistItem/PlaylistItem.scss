@@ -1,0 +1,36 @@
+@import 'variables';
+
+.base {
+  display: flex;
+  flex-direction: row;
+  color: $color-white;
+  border-bottom: 1px solid $color-neutral-dark;
+  padding: 3px;
+  align-items: center;
+  &.isPlaying {
+    background: rgba($color-accent-normal, 0.1);
+  }
+}
+
+.play {
+  line-height: 20px;
+  margin-right: 4px;
+}
+
+.title {
+  font-size: 12px;
+  color: $color-neutral-lighter;
+}
+
+.button {
+  text-align: center;
+  appearance: none;
+  font-size: 10px;
+  line-height: 10px;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border-radius: 20px;
+  padding: 0;
+  border: 1px solid $color-neutral-lighter;
+}

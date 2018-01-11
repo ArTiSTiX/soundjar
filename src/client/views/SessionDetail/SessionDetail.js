@@ -20,7 +20,7 @@ class SessionDetail extends Component {
     return this.props.getSession(sessionId)
   }
 
-  handlePlay = track => this.props.playTrack(track)
+  handlePlay = track => this.props.playTrack(track, this.props.session)
 
   render() {
     const {
@@ -28,7 +28,7 @@ class SessionDetail extends Component {
       error,
       isLoading,
       isPlaying,
-      currentTrack,
+      current,
     } = this.props
 
     if (isLoading) { return null }
@@ -48,7 +48,7 @@ class SessionDetail extends Component {
           <TrackItem
             key={track.id}
             track={track}
-            currentTrack={currentTrack}
+            current={current}
             isPlaying={isPlaying}
             onPlay={this.handlePlay}
           />
@@ -64,7 +64,7 @@ export default connect(
     isLoading: get(state, 'sessions.detail.isLoading'),
     error: get(state, 'sessions.detail.error'),
     isPlaying: get(state, 'player.isPlaying'),
-    currentTrack: get(state, 'player.currentTrack'),
+    current: get(state, 'player.current'),
   }),
   {
     getSession,

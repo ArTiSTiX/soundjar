@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import moment from 'moment'
+import { getTrackDefaultTitle } from 'helpers/playlist'
 
 import Musicon from 'components/Musicon'
 
@@ -7,23 +7,16 @@ import cx from './TrackItem.scss'
 
 
 class TrackItem extends Component {
-  getDefaultTitle = () => {
-    const { track } = this.props
-    if (!track) { return '' }
-    if (track.start_at) {
-      return moment(track.start_at).format('HH[h]mm')
-    }
-    return 'No title'
-  }
+  getDefaultTitle = () => getTrackDefaultTitle(this.props.track)
 
   handlePlay = () => this.props.onPlay(this.props.track)
 
   render() {
-    const { track, currentTrack, isPlaying: currentTrackIsPlaying } = this.props
+    const { track, current, isPlaying: currentIsPlaying } = this.props
 
     if (!track || !track.render || !track.render.mp3) { return null }
 
-    const isPlaying = currentTrackIsPlaying && (currentTrack && currentTrack.id === track.id)
+    const isPlaying = currentIsPlaying && (current && current.type === 'track' && current.id === track.id)
 
     return (
       <div className={cx('base')}>

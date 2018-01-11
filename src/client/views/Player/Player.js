@@ -7,6 +7,8 @@ import {
   setPosition,
   setPlaying,
   setReady,
+  next,
+  previous,
 } from 'actions/player'
 
 import Musicon from 'components/Musicon'
@@ -38,6 +40,16 @@ class Player extends Component {
   zoomDelta = 0
 
   handleTogglePlay = () => this.props.setPlaying(!this.props.isPlaying)
+  handleFinish = () => {
+    this.setState({ position: 0 })
+    this.props.next()
+  }
+  handleForward = () => {
+    this.props.next()
+  }
+  handleBackward = () => {
+    this.props.previous()
+  }
   handlePosChange = e => this.setState({ position: e.originalArgs[0] })
   handleLoading = e => {
     const isLoading = e.originalArgs[0]
@@ -51,6 +63,7 @@ class Player extends Component {
   handleWaveformReady = () => {
     this.setState({ isLoading: false })
   }
+
 
   handleWheel = e => {
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
@@ -68,10 +81,10 @@ class Player extends Component {
 
   getMinZoom = () => {
     const {
-      currentTrack,
+      current,
     } = this.props
 
-    return window.innerWidth / get(currentTrack, 'render.duration', 60.0)
+    return window.innerWidth / (get(current, 'duration') || 60.0)
   }
 
   setZoom = zoom => {
@@ -80,13 +93,13 @@ class Player extends Component {
 
   render() {
     const {
-      isPlaying,
-      currentTrack,
       className,
+      isPlaying,
+      current,
     } = this.props
 
     const { isLoading, position, zoom } = this.state
-    const audioFile = get(currentTrack, 'render.mp3')
+    const audioFile = get(current, 'file')
 
     const minZoom = this.getMinZoom()
 
@@ -101,18 +114,21 @@ class Player extends Component {
           )}
           onWheel={this.handleWheel}
         >
-          <Wavesurfer
-            options={PLAYER_OPTIONS}
-            audioFile={audioFile}
-            pos={position}
-            zoom={Math.max(minZoom, zoom || minZoom)}
-            onPosChange={this.handlePosChange}
-            onLoading={this.handleLoading}
-            onReady={this.handleReady}
-            onWaveformReady={this.handleWaveformReady}
-            playing={isPlaying}
-            responsive={false}
-          />
+          {audioFile
+            ? <Wavesurfer
+              options={PLAYER_OPTIONS}
+              audioFile={audioFile}
+              pos={position}
+              zoom={Math.max(minZoom, zoom || minZoom)}
+              onPosChange={this.handlePosChange}
+              onLoading={this.handleLoading}
+              onReady={this.handleReady}
+              onWaveformReady={this.handleWaveformReady}
+              onFinish={this.handleFinish}
+              playing={isPlaying}
+              responsive={false}
+            />
+            : null}
           {!!isLoading &&
             <div
               className={cx('loading')}
@@ -121,9 +137,8 @@ class Player extends Component {
         </div>
         <div className={cx('actions')}>
           <button
-            className={cx('button', 'button--backward', { isActive: false })}
+            className={cx('button', 'button--backward')}
             onClick={this.handleBackward}
-            disabled
           >
             <Musicon icon='backward' />
           </button>
@@ -133,7 +148,6 @@ class Player extends Component {
               'button--play',
               {
                 isPlaying,
-                isActive: !!audioFile,
               }
             )}
             disabled={!audioFile}
@@ -142,8 +156,7 @@ class Player extends Component {
             <Musicon icon={isPlaying ? 'pause' : 'play'} />
           </button>
           <button
-            className={cx('button', 'button--forward', { isActive: false })}
-            disabled
+            className={cx('button', 'button--forward')}
             onClick={this.handleForward}
           >
             <Musicon icon='forward' />
@@ -158,12 +171,15 @@ const connectPlayer = connect(
   state => ({
     isPlaying: get(state, 'player.isPlaying'),
     isReady: get(state, 'player.isReady'),
-    currentTrack: get(state, 'player.currentTrack'),
+    current: get(state, 'player.current'),
+    playlist: get(state, 'player.playlist'),
   }),
   {
     setPosition,
     setPlaying,
     setReady,
+    next,
+    previous,
   }
 )
 

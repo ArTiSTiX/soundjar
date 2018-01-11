@@ -4,6 +4,7 @@ import { handleAuthentication } from 'actions/auth'
 
 import Navigation from 'components/Navigation'
 import Player from 'views/Player'
+import Playlist from 'views/Playlist'
 
 import cx from './App.scss'
 
@@ -32,13 +33,9 @@ class App extends Component {
           <div className={cx('body')}>
             {children}
           </div>
-          <div className={cx('playlist')}>
-          playlist
-          </div>
+          <Playlist className={cx('playlist')} />
         </div>
-        <div>
-          <Player className={cx('player', { 'player-isActive': playerIsActive })} />
-        </div>
+        <Player className={cx('player', { 'player-isActive': playerIsActive })} />
       </div>
     )
   }
@@ -47,7 +44,7 @@ class App extends Component {
 export default connect(
   state => ({
     auth: state.auth,
-    playerIsActive: !!state.player.currentTrack,
+    playerIsActive: !!state.player.current,
   }),
   {
     handleAuthentication,
