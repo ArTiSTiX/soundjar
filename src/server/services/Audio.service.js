@@ -109,9 +109,12 @@ class AudioService {
       info = await probe(fullPath) // Parse audio file infos
       const { duration } = info.streams[0]
 
-      const birthtime = moment(fs.statSync(fullPath).birthtime) // get file creation date
-      // const date = moment(matches[AUDIO_PATTERN.groups.date], AUDIO_PATTERN.dateFormat).toDate()
-      const startAt = birthtime.toDate()
+      // const birthtime = moment(fs.statSync(fullPath).birthtime) // get file creation date
+      const date = moment(
+        audioMatches[AUDIO_PATTERN.groups.date],
+        AUDIO_PATTERN.dateFormat
+      )
+      const startAt = date.toDate()
 
       channel = audioMatches[AUDIO_PATTERN.groups.channel];
 

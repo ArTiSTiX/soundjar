@@ -11,7 +11,7 @@ export const database = {
   directory: './migrations',
   define: {
     paranoid: true,
-    rejectOnEmpty: true,
+    rejectOnEmpty: false,
     timestamps: true,
     freezeTableName: true,
     underscored: true,

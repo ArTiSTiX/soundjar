@@ -40,6 +40,7 @@ export default handleActions({
     ...state,
     list: {
       ...state.list,
+      items: [],
       isLoading: true,
     },
   }),
