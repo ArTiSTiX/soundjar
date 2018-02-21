@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions'
-import { findIndex, last } from 'lodash'
+import { findIndex } from 'lodash'
 
 import { createPlaylistItem, getPlaylistItem, transformSessionToPlaylist } from 'helpers/playlist'
 

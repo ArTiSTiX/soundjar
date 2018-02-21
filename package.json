@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A web utility to annotate, store, and review recording sessions with friends",
   "main": "index.js",
+  "no-optional": "true",
   "scripts": {
     "lint": "babel-node ./node_modules/.bin/eslint ./src",
     "start": "node bin/start",
@@ -89,14 +90,14 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "react-trianglify": "^1.2.0",
-    "react-wavesurfer": "ArTiSTiX/react-wavesurfer#master",
+    "react-wavesurfer": "ArTiSTiX/react-wavesurfer#v2-waveform-ready",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.28.6",
     "sequelize-cli": "^3.2.0",
     "trianglify": "^1.2.0",
-    "wavesurfer.js": "^1.4.0",
+    "wavesurfer.js": "^2.0.0",
     "webpack": "^3.10.0"
   }
 }

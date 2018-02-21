@@ -133,10 +133,6 @@ const webpackConfig = {
           },
         },
       },
-      {
-        test: require.resolve('wavesurfer.js'),
-        use: 'imports-loader?this=>window',
-      },
     ],
   },
   plugins: [

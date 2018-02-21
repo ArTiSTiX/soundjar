@@ -70,7 +70,7 @@ export const build = {
   fontsFilename: 'assets/fonts/[name].[ext]',
   cssFilename: false,
   publicPath: '/',
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-cheap-module-source-map',
   minify: false,
   hmr: true,
 }

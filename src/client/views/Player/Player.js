@@ -1,7 +1,9 @@
 import { get, throttle } from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Wavesurfer from 'react-wavesurfer'
+
+import Wavesurfer from 'react-wavesurfer/lib/react-wavesurfer'
+import Regions from 'react-wavesurfer/lib/plugins/regions'
 
 import {
   setPosition,
@@ -27,8 +29,13 @@ const PLAYER_OPTIONS = {
   pixelRatio: 3,
   scrollParent: true,
   backend: 'MediaElement',
-  renderer: 'MultiCanvas',
   autoCenter: false,
+}
+
+const REGIONS_OPTIONS = {
+  dragSelection: true,
+  color: '#d147821a',
+  drag: false,
 }
 
 class Player extends Component {
@@ -36,6 +43,7 @@ class Player extends Component {
     isLoading: false,
     position: 0,
     zoom: null,
+    regions: {},
   }
   zoomDelta = 0
 
@@ -64,13 +72,34 @@ class Player extends Component {
     this.setState({ isLoading: false })
   }
 
-
   handleWheel = e => {
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
       e.preventDefault()
       this.zoomDelta += e.deltaY
       this.applyZoomDelta()
     }
+  }
+
+  handleRegionEvent = e => {
+    const { regions } = this.state
+    const {
+      id,
+      start,
+      end,
+    } = e.originalArgs[0]
+
+    this.setState({
+      regions: {
+        ...regions,
+        [id]: {
+          id, start, end,
+        },
+      },
+    })
+  }
+
+  handleEvent = (type, e) => {
+    console.log(type, e)
   }
 
   applyZoomDelta = throttle(() => {
@@ -98,7 +127,13 @@ class Player extends Component {
       current,
     } = this.props
 
-    const { isLoading, position, zoom } = this.state
+    const {
+      isLoading,
+      position,
+      zoom,
+      regions,
+    } = this.state
+
     const audioFile = get(current, 'file')
 
     const minZoom = this.getMinZoom()
@@ -115,19 +150,29 @@ class Player extends Component {
           onWheel={this.handleWheel}
         >
           {audioFile
-            ? <Wavesurfer
-              options={PLAYER_OPTIONS}
-              audioFile={audioFile}
-              pos={position}
-              zoom={Math.max(minZoom, zoom || minZoom)}
-              onPosChange={this.handlePosChange}
-              onLoading={this.handleLoading}
-              onReady={this.handleReady}
-              onWaveformReady={this.handleWaveformReady}
-              onFinish={this.handleFinish}
-              playing={isPlaying}
-              responsive={false}
-            />
+            ? (
+              <Wavesurfer
+                options={PLAYER_OPTIONS}
+                audioFile={audioFile}
+                pos={position}
+                zoom={Math.max(minZoom, zoom || minZoom)}
+                onLoading={this.handleLoading}
+                onReady={this.handleReady}
+                onWaveformReady={this.handleWaveformReady}
+                onFinish={this.handleFinish}
+
+                playing={isPlaying}
+                responsive={false}
+              >
+                {wavesurfer => (<Regions
+                  wavesurfer={wavesurfer}
+                  regions={regions}
+                  onRegionUpdated={this.handleRegionEvent}
+                  onRegionUpdateEnd={this.handleRegionEvent}
+                  options={REGIONS_OPTIONS}
+                />)}
+              </Wavesurfer>
+            )
             : null}
           {!!isLoading &&
             <div
