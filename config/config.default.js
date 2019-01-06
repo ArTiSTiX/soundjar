@@ -33,7 +33,7 @@ export const auth = {
 }
 
 export const defaults = {
-  artist: 'Poons',
+  artist: 'NXMR',
 }
 
 export const bluebird = {

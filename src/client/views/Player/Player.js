@@ -1,9 +1,6 @@
-import { get, throttle } from 'lodash'
+import { get } from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
-import Wavesurfer from 'react-wavesurfer/lib/react-wavesurfer'
-import Regions from 'react-wavesurfer/lib/plugins/regions'
 
 import {
   setPosition,
@@ -14,42 +11,21 @@ import {
 } from 'actions/player'
 
 import Musicon from 'components/Musicon'
+import Audio from 'components/Audio'
+import TrackSlider from 'components/TrackSlider'
 
 import cx from './Player.scss'
-
-const ZOOM_FACTOR = 0.02
-const PLAYER_OPTIONS = {
-  // barWidth: 1,
-  cursorColor: '#30d3a5',
-  waveColor: '#7d8491',
-  progressColor: '#209775',
-  fillParent: false,
-  height: 72,
-  // barHeight: 0.90,
-  pixelRatio: 3,
-  scrollParent: true,
-  backend: 'MediaElement',
-  autoCenter: false,
-}
-
-const REGIONS_OPTIONS = {
-  dragSelection: true,
-  color: '#d147821a',
-  drag: false,
-}
 
 class Player extends Component {
   state = {
     isLoading: false,
-    position: 0,
-    zoom: null,
-    regions: {},
+    currentTime: 0,
+    duration: null,
   }
-  zoomDelta = 0
 
   handleTogglePlay = () => this.props.setPlaying(!this.props.isPlaying)
   handleFinish = () => {
-    this.setState({ position: 0 })
+    this.setState({ currentTime: 0, duration: null })
     this.props.next()
   }
   handleForward = () => {
@@ -58,66 +34,21 @@ class Player extends Component {
   handleBackward = () => {
     this.props.previous()
   }
-  handlePosChange = e => this.setState({ position: e.originalArgs[0] })
-  handleLoading = e => {
-    const isLoading = e.originalArgs[0]
-    this.setState({ isLoading })
-  }
+  handlePositionChange = ({ currentTime, duration }) => this.setState({ currentTime, duration })
 
   handleReady = () => {
-    this.props.setPlaying(true)
-  }
-
-  handleWaveformReady = () => {
-    this.setState({ isLoading: false })
-  }
-
-  handleWheel = e => {
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      e.preventDefault()
-      this.zoomDelta += e.deltaY
-      this.applyZoomDelta()
+    const { isPlaying } = this.props
+    if (!isPlaying) {
+      this.props.setPlaying(true)
     }
   }
 
-  handleRegionEvent = e => {
-    const { regions } = this.state
-    const {
-      id,
-      start,
-      end,
-    } = e.originalArgs[0]
-
-    this.setState({
-      regions: {
-        ...regions,
-        [id]: {
-          id, start, end,
-        },
-      },
-    })
+  handleLoading = isLoading => {
+    this.setState({ isLoading })
   }
 
-  handleEvent = (type, e) => {
-    console.log(type, e)
-  }
-
-  applyZoomDelta = throttle(() => {
-    const { zoom } = this.state
-    this.setZoom(Math.max((0.0, -ZOOM_FACTOR * this.zoomDelta) + zoom))
-    this.zoomDelta = 0
-  }, 200)
-
-  getMinZoom = () => {
-    const {
-      current,
-    } = this.props
-
-    return window.innerWidth / (get(current, 'duration') || 60.0)
-  }
-
-  setZoom = zoom => {
-    this.setState({ zoom: Math.min(50.0, Math.max(this.getMinZoom(), zoom)) })
+  handleSeek = position => {
+    this.props.setPosition(position)
   }
 
   render() {
@@ -125,18 +56,16 @@ class Player extends Component {
       className,
       isPlaying,
       current,
+      position,
     } = this.props
 
     const {
       isLoading,
-      position,
-      zoom,
-      regions,
+      currentTime,
+      duration,
     } = this.state
 
     const audioFile = get(current, 'file')
-
-    const minZoom = this.getMinZoom()
 
     return (
       <div className={cx('base', className)}>
@@ -149,31 +78,23 @@ class Player extends Component {
           )}
           onWheel={this.handleWheel}
         >
-          {audioFile
-            ? (
-              <Wavesurfer
-                options={PLAYER_OPTIONS}
-                audioFile={audioFile}
-                pos={position}
-                zoom={Math.max(minZoom, zoom || minZoom)}
-                onLoading={this.handleLoading}
-                onReady={this.handleReady}
-                onWaveformReady={this.handleWaveformReady}
-                onFinish={this.handleFinish}
-
-                playing={isPlaying}
-                responsive={false}
-              >
-                {wavesurfer => (<Regions
-                  wavesurfer={wavesurfer}
-                  regions={regions}
-                  onRegionUpdated={this.handleRegionEvent}
-                  onRegionUpdateEnd={this.handleRegionEvent}
-                  options={REGIONS_OPTIONS}
-                />)}
-              </Wavesurfer>
-            )
-            : null}
+          <Audio
+            src={audioFile}
+            startPosition={position}
+            isPlaying={isPlaying}
+            onReady={this.handleReady}
+            onPositionChange={this.handlePositionChange}
+            onFinish={this.handleFinish}
+            onLoading={this.handleLoading}
+          />
+          <TrackSlider
+            currentTime={currentTime}
+            duration={duration}
+            isPlaying={isPlaying}
+            isLoading={isLoading}
+            onSeek={this.handleSeek}
+            markerTime={position}
+          />
           {!!isLoading &&
             <div
               className={cx('loading')}
@@ -218,6 +139,7 @@ const connectPlayer = connect(
     isReady: get(state, 'player.isReady'),
     current: get(state, 'player.current'),
     playlist: get(state, 'player.playlist'),
+    position: get(state, 'player.position'),
   }),
   {
     setPosition,

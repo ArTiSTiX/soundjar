@@ -8,6 +8,7 @@ import ExtendedDefinePlugin from 'extended-define-webpack-plugin'
 import babelPresetReact from 'babel-preset-react'
 import babelPresetEs2015 from 'babel-preset-es2015'
 import babelLodashPlugin from 'babel-plugin-lodash'
+import babelTransformClassPropertiesPlugin from 'babel-plugin-transform-class-properties'
 
 import babelReactInlineElementsPlugin from 'babel-plugin-transform-react-inline-elements'
 import babelReactConstantElementsPlugin from 'babel-plugin-transform-react-constant-elements'
@@ -113,7 +114,6 @@ const webpackConfig = {
       },
       {
         test: /\.js?$/,
-        exclude: [require.resolve('wavesurfer.js')],
         use: {
           loader: 'babel-loader',
           options: {
@@ -124,11 +124,11 @@ const webpackConfig = {
               (config.get('build.hmr') ? reactHmre : null),
             ]),
             plugins: _.compact([
-              'transform-class-properties',
+              babelTransformClassPropertiesPlugin,
               babelLodashPlugin,
               (config.get('build.hmr') ? reactHotLoaderBabel : null),
-              babelReactInlineElementsPlugin,
-              babelReactConstantElementsPlugin,
+              (config.get('build.minify') ? babelReactInlineElementsPlugin : null),
+              (config.get('build.minify') ? babelReactConstantElementsPlugin : null),
             ]),
           },
         },
@@ -153,9 +153,6 @@ const webpackConfig = {
 
   resolve: {
     modules: [src, path.join(__dirname, '../node_modules')],
-    alias: {
-      wavesurfer: 'wavesurfer.js',
-    },
   },
 }
 

@@ -11,7 +11,7 @@ const ADD_PLAYLIST = 'player/ADD_PLAYLIST'
 
 export const setPosition = createAction(SET_POSITION, position => ({ position }))
 export const setPlaying = createAction(SET_PLAYING, isPlaying => ({ isPlaying }))
-export const setReady = createAction(SET_PLAYING, isReady => ({ isReady }))
+export const setReady = createAction(SET_READY, isReady => ({ isReady }))
 export const setCurrent = createAction(SET_CURRENT, current => ({ current }))
 export const addPlaylist = createAction(ADD_PLAYLIST, playlist => ({ playlist }))
 
@@ -99,6 +99,7 @@ export default handleActions({
     ...state,
     current,
     isPlaying: false,
+    position: 0,
   }),
   [ADD_PLAYLIST]: (state, { payload: { playlist } }) => ({
     ...state,

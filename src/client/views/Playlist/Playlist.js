@@ -31,6 +31,7 @@ class Playlist extends Component {
             current={current}
             isPlaying={isPlaying}
             onPlay={this.handlePlay}
+            key={item.id}
           />
         ))}
       </div>

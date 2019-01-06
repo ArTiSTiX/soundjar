@@ -1,0 +1,144 @@
+@import 'variables';
+
+@keyframes waveform {
+  0% {
+    background-position: 0 center;
+  }
+  100% {
+    background-position: -72px center;
+  }
+}
+
+.base {
+  width: 100%;
+  height: 72px;
+  position: relative;
+  box-shadow: inset 0 48px 48px -24px rgba($color-neutral-normal, 0.2);
+  background: rgba($color-neutral-darker, 0.7);
+  cursor: none;
+
+  &:hover {
+    .cursor {
+      opacity: 1;
+    }
+  }
+}
+
+.base.isLoading {
+  opacity: 0.5;
+  background: url('./waveform.png') repeat-x;
+  background-size: 72px 48px;
+  background-position: 0 center;
+  animation: waveform 3s infinite steps(36);
+}
+
+.progress {
+  height: 100%;
+  // box-shadow: inset 0 48px 48px -24px rgba($color-neutral-light, 0.2);
+  background:$color-neutral-dark;
+  border-right: 1px solid $color-neutral-lighter;
+}
+
+.duration, .time {
+  padding: 8px;
+  position: absolute;
+
+  bottom: 0;
+}
+
+.duration {
+  right: 0;
+}
+
+.time {
+  left: 0;
+}
+
+.cursor,
+.marker {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+}
+
+.cursor {
+  border-right: 1px solid rgba($color-neutral-lighter,  0.6);
+  opacity: 0;
+}
+
+.marker {
+  border-right: 1px solid $color-accent-normal;
+}
+
+.region {
+  z-index: 5!important;
+  border-radius: 2px;
+  overflow: hidden;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255,255,255, 0.1) 0%,
+    rgba(255,255,255, 0) 15%,
+    rgba(255,255,255, 0) 33%,
+    rgba(255,255,255, 0) 67%,
+    rgba(255,255,255, 0) 85%,
+    rgba(255,255,255, 0.1) 100%
+  )!important;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  transition: background $transition-medium,
+              opacity $transition-medium;
+
+  &:hover {
+    z-index: 6!important;
+    overflow: visible;
+    border-color: currentColor;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(255,255,255, 0.3) 0%,
+      rgba(255,255,255, 0.1) 15%,
+      rgba(255,255,255, 0) 33%,
+      rgba(255,255,255, 0) 67%,
+      rgba(255,255,255, 0.1) 85%,
+      rgba(255,255,255, 0.3) 100%
+    )!important;
+    opacity: 1.0;
+    .wavesurfer-handle {
+      opacity: 1.0;
+    }
+  }
+}
+
+.handle {
+  width: 5px!important;
+  max-width: none;
+  opacity: 0;
+
+  &::before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 50%;
+    margin-top: -8px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+  }
+
+  &-start{
+    left: -2px!important;
+    &::before {
+      left: 2px;
+      border-left: 8px solid $color-white;
+    }
+  }
+
+  &-end {
+    left: auto!important;
+    right: -2px!important;
+    &::before {
+      right: 2px;
+      border-right: 8px solid $color-white;
+    }
+  }
+}
